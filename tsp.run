@@ -1,0 +1,10 @@
+## TSP run
+
+reset;
+
+option solver gurobi;
+
+model SequentialForm.mod;
+data ulysses16.dat;
+
+solve;
