@@ -4,7 +4,7 @@ reset;
 
 option solver gurobi;
 
-model FlowForm.mod;
+model SequentialForm.mod;
 data ulysses16.dat;
 
 solve;
