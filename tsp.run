@@ -3,8 +3,12 @@
 reset;
 
 option solver gurobi;
-
-model SequentialForm.mod;
-data ulysses16.dat;
+		option gurobi_options 'timelim=30';
+		option gurobi_options $gurobi_options 'presolve 0';
+		option gurobi_options $gurobi_options 'heurfrac 0';
+		option gurobi_options $gurobi_options 'cuts 0';
+		option gurobi_options $gurobi_options 'mipstart 0';
+model FlowForm.mod;
+data dantzig42.dat;
 
 solve;
