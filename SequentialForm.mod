@@ -6,7 +6,7 @@ set LINKS := {i in CITIES, j in CITIES: ord(i) != ord(j)};
 param COST{LINKS} >= 0;
 var x {LINKS} binary;
 
-var u {CITIES} integer;
+var u {CITIES} integer >= 0;
 
 minimize minDist: sum{i in CITIES, j in CITIES: ord(i) != ord(j)} x[i,j]*COST[i,j];
 

@@ -1,14 +1,23 @@
 ## TSP run
-
 reset;
 
-option solver gurobi;
-		option gurobi_options 'timelim=30';
-		option gurobi_options $gurobi_options 'presolve 0';
-		option gurobi_options $gurobi_options 'heurfrac 0';
-		option gurobi_options $gurobi_options 'cuts 0';
-		option gurobi_options $gurobi_options 'mipstart 0';
-model FlowForm.mod;
-data dantzig42.dat;
+set CASES := { "burma14","ulysses16", "ulysses22","bayg29","wi29","dj38","dantzig42","att48","eil51","berlin52","xqf131"};
 
+option solver gurobi;
+option gurobi_options 'timelim=300';
+option gurobi_options $gurobi_options 'presolve 0';
+option gurobi_options $gurobi_options 'heurfrac 0';
+option gurobi_options $gurobi_options 'cuts 0';
+option gurobi_options $gurobi_options 'mipstart 0';
+
+model SubtourElim.mod;
+
+for {j in CASES} {
+reset data; 
+data (j & ".dat");
 solve;
+printf ( j & ": " & minDist & "    ") > OptimalValue.txt;
+printf (j & ": " & num0(sub(solve_message, '@*^([0-9]+) branch-and@*', '\1')) & "    ") > Nodes.txt;
+printf (j & ": " & _total_solve_elapsed_time  & "    ") > ElaspedTime.txt;
+}
+
